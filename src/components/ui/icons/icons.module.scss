@@ -1,3 +1,15 @@
 .icon {
   cursor: pointer;
+  g {
+    path {
+      transition: fill .2s ease-in-out;
+    }
+  }
+  &:hover, &:active {
+    g {
+      path {
+        fill: #CCA88A;
+      }
+    }
+  }
 }

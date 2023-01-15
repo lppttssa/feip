@@ -37,7 +37,7 @@ export const Header = (props: HeaderProps):JSX.Element => {
         <ul className={s.listRight}>
           <li className={s.listItem}>
             <Link to='/cart' className={s.cartLink}>
-              {!!cart.length && <span className={s.itemsNumber}>{cart.length}</span>}
+              {!!cart.length && <span className={cn(s.itemsNumber, { [s.styled]: styled })}>{cart.length}</span>}
               <ShoppingCartIcon className={cn(s.shoppingCart, { [s.styled]: styled })} />
             </Link>
           </li>

@@ -8,6 +8,9 @@
     padding: 9px 4px;
     font-size: 30px;
     color: #E0BEA2;
+    &:hover, &:active {
+      color: #CCA88A;
+    }
   }
   .btnDecr {
     margin-top: -4px;

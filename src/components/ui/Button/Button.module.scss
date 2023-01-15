@@ -3,4 +3,12 @@
   text-transform: uppercase;
   color: #FFFFFF;
   background-color: #E0BEA2;
+  transition: box-shadow .2s ease-in-out, background-color .2s ease-in-out;
+  &:hover {
+    box-shadow: 0 5px 7px rgba(37, 37, 37, 0.15);
+  }
+  &:active {
+    background-color: #CCA88A;
+    box-shadow: 0 3px 7px rgba(37, 37, 37, 0.15);
+  }
 }

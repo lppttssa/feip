@@ -55,8 +55,11 @@
           line-height: 1;
           background-color: #FFFFFF;
           border-radius: 100%;
-          border: 1px solid #CCA88A;
+          border: none;
           animation: appear .4s;
+          &.styled {
+            border: 1px solid #CCA88A;
+          }
           @keyframes appear {
             0% {
               top: -12px
