@@ -19,4 +19,93 @@
     font-weight: 300;
     color: #252525;
   }
+  .cardsList {
+    margin-bottom: 30px;
+  }
+  .totalPrice{
+    margin-bottom: 70px;
+    text-align: right;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 19px;
+    color: #252525;
+    .price {
+      font-weight: 700;
+    }
+  }
+  .form {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    .leftSide {
+      .formTitle {
+        margin-bottom: 20px;
+        font-weight: 300;
+        font-size: 16px;
+        line-height: 19px;
+        color: #252525;
+      }
+      .topInputContainer {
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: space-between;
+        .inputColumnContainer {
+          display: flex;
+          flex-direction: column;
+          &:not(:last-child) {
+            margin-right: 20px;
+          }
+        }
+      }
+      .input {
+        &:not(:last-child) {
+          margin-bottom: 20px;
+        }
+      }
+      .radioContainer {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        .column {
+          display: flex;
+          flex-direction: column;
+          max-width: 400px;
+          width: 100%;
+          .radio {
+            margin-bottom: 20px;
+          }
+        }
+      }
+      .addressContainer {
+        .input {
+          margin-right: 20px;
+        }
+      }
+    }
+    .rightSide {
+      margin-top: 37px;
+      display: flex;
+      flex-direction: column;
+      max-width: 300px;
+      .title {
+        display: flex;
+        justify-content: space-between;
+        font-weight: 300;
+        font-size: 16px;
+        line-height: 19px;
+        color: #252525;
+        margin-bottom: 15px;
+        .data {
+          font-weight: 700;
+        }
+      }
+      .conditions {
+        margin-top: 15px;
+        font-weight: 300;
+        font-size: 14px;
+        line-height: 16px;
+        color: #252525;
+      }
+    }
+  }
 }
