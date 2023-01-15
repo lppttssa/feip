@@ -30,7 +30,8 @@ export const CartPage = ():JSX.Element => {
       phone: phone,
       post: post,
       postOffice: postOffice,
-      city: city
+      city: city,
+      order: cart,
     }
     return fetch(`https://jsonplaceholder.typicode.com/posts`,
         {
@@ -115,7 +116,7 @@ export const CartPage = ():JSX.Element => {
 
   const emptyCartData = () => (
     <div className={s.emptyCartContainer}>
-      <span className={s.emptyText}>{isOrderSent ? 'Ваш заказ успешно отправлен' : 'Ваша корзина пуст'}</span>
+      <span className={s.emptyText}>{isOrderSent ? 'Ваш заказ успешно отправлен' : 'Ваша корзина пуста'}</span>
       <Link to='/catalog' className={sBtn.btn}>Перейти к покупкам</Link>
     </div>
   );

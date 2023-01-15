@@ -12,7 +12,7 @@ const CartContext = createContext<CartContextType>({
 
 export const CartContextComponent = ({children}: {children: React.ReactNode}) => {
   const [state, dispatch] = useReducer(cartReducer, {
-    cart: [],
+    cart: JSON.parse(localStorage.getItem("cart") as string) || [],
   });
 
   const addItem = (params: any) => {
