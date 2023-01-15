@@ -1,0 +1,30 @@
+.footer {
+  padding-top: 100px;
+  padding-bottom: 74px;
+  display: flex;
+  justify-content: space-between;
+  .footerText {
+    display: block;
+    font-size: 16px;
+    font-weight: 200;
+    line-height: 19px;
+    color: #252525;
+  }
+  .footerBlock {
+    .title {
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      color: #252525;
+    }
+    .footerListItem:not(:last-child) {
+      margin-bottom: 10px;
+    }
+    .socialMedias {
+      display: flex;
+      margin-bottom: 11px;
+      .icon:not(:last-child) {
+        margin-right: 10px;
+      }
+    }
+  }
+}

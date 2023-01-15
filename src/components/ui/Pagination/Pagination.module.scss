@@ -1,0 +1,48 @@
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &.hidden {
+    display: none;
+  }
+  .paginationItem {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    font-size: 22px;
+    line-height: 22px;
+    border: 1px solid #E0BEA2;
+    border-radius: 50px;
+    cursor: pointer;
+    &:not(:last-child) {
+      margin-right: 10px;
+    }
+    &.active {
+      background-color: #E0BEA2;
+      color: #FFFFFF;
+    }
+  }
+  .arrowContainer {
+    cursor: pointer;
+    .arrow {
+      width: 10px;
+    }
+    &.disabled {
+      cursor: default;
+      .arrow {
+        visibility: hidden;
+      }
+    }
+  }
+  .arrowLeftContainer {
+    margin-right: 10px;
+    .arrowLeft {
+      transform: rotate(90deg);
+    }
+  }
+  .arrowRight {
+    transform: rotate(270deg);
+  }
+}

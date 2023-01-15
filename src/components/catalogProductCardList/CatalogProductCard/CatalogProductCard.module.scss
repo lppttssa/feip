@@ -1,0 +1,40 @@
+.itemCard {
+  display: flex;
+  flex-direction: column;
+  .img {
+    width: 310px;
+  }
+  .infoContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px 0;
+    .title {
+      display: inline-block;
+      margin-bottom: 5px;
+      font-size: 16px;
+      line-height: 18px;
+      font-weight: 300;
+    }
+    .priceContainer {
+      display: inline-block;
+      margin-bottom: 10px;
+      font-size: 16px;
+      line-height: 19px;
+      font-weight: 700;
+      .priceValue {
+        margin-right: 5px;
+      }
+      .priceCurrency {
+
+      }
+    }
+    .brand {
+      margin-bottom: 20px;
+      color: rgba(37, 37, 37, 0.5);
+    }
+    .btn {
+      min-width: 170px;
+    }
+  }
+}
