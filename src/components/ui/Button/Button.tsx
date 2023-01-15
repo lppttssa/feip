@@ -6,15 +6,16 @@ type ButtonProps = {
   onClick: () => void,
   text: string,
   className?: string,
+  type?: 'submit',
 }
 
 export const Button = (props: ButtonProps) => {
   const {
-    onClick, text, className
+    onClick, text, className, type
   } = props;
 
   return (
-    <button onClick={onClick} className={cn(s.btn, className)}>
+    <button type={type} onClick={onClick} className={cn(s.btn, className)}>
       {text}
     </button>
   );

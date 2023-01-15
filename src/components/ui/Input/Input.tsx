@@ -16,6 +16,6 @@ export const Input = (props: InputProps):JSX.Element => {
   } = props;
 
   return (
-    <input className={cn(className, s.input)} value={value} onChange={onChange} placeholder={placeholder} type={type} />
+    <input required className={cn(className, s.input)} value={value} onChange={onChange} placeholder={placeholder} type={type} />
   );
 };

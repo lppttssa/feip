@@ -33,21 +33,24 @@ export const CartPage = ():JSX.Element => {
       city: city,
       order: cart,
     }
-    return fetch(`https://jsonplaceholder.typicode.com/posts`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          },
-          body: JSON.stringify(body)
-        }
-    )
-        .then(response => response.json())
-        .then((responseData) => {
-          setOrderSent(true);
-          clearCart();
-        })
+    if (!!name.length && !!surname.length && !!email.length && !!phone.length && !!postOffice.length && !!city.length) {
+      return fetch(`https://jsonplaceholder.typicode.com/posts`,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            body: JSON.stringify(body)
+          }
+      )
+          .then(response => response.json())
+          .then((responseData) => {
+            setOrderSent(true);
+            clearCart();
+          })
+    }
+
   }
 
   const fullCartData = () => (
@@ -107,7 +110,7 @@ export const CartPage = ():JSX.Element => {
         <div className={s.rightSide}>
           <span className={s.title}>Доставка:<span className={s.data}>По тарифам перевозчика</span></span>
           <span className={s.title}>Итого:<span className={s.data}>{`${cart.reduce((sum, item) => sum + item.quantity * item.price.value, 0).toFixed(2)} руб.`}</span></span>
-          <Button onClick={handleOrderSend} text={'ОФОРМИТЬ ЗАКАЗ'} />
+          <Button type='submit' onClick={handleOrderSend} text={'ОФОРМИТЬ ЗАКАЗ'} />
           <p className={s.conditions}>Нажимая на кнопку «оплатить заказ», я принимаю условия публичной оферты и политики конфиденциальности</p>
         </div>
       </form>

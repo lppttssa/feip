@@ -12,11 +12,11 @@ type RadioProps = {
 
 export const Radio = (props: RadioProps) => {
   const {
-    label, value, onChange, name, className
+    label, value, onChange, name, className,
   } = props;
   return (
     <label className={cn(className, s.label)}>
-      <input value={value} name={name} onChange={onChange} className={s.input} type='radio'/>
+      <input required value={value} name={name} onChange={onChange} className={s.input} type='radio'/>
       {label}
     </label>
   );
