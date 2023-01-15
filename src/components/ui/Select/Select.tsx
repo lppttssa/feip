@@ -5,9 +5,11 @@ import arrow from '../../../assets/images/selectArrow.svg'
 import {BrandType} from "../../../types";
 
 type SelectProps = {
-  selectItems: BrandType[],
+  selectItems: any,
   selectDefaultTitle: string,
   handleChoose: (chosenOptions: string[]) => void,
+  isOnlyValueSelect?: boolean,
+  styled?: boolean,
 };
 
 export const Select = (props: SelectProps) => {
@@ -15,6 +17,8 @@ export const Select = (props: SelectProps) => {
     selectItems,
     selectDefaultTitle,
     handleChoose,
+    isOnlyValueSelect,
+    styled
   } = props;
 
   const [selectTitle, setSelectTitle] = useState(selectDefaultTitle);
@@ -29,32 +33,38 @@ export const Select = (props: SelectProps) => {
     const option = e.target.innerText;
     const optionIndex = selectedValues.indexOf(option);
     let newValue = [...selectedValues];
-    if (optionIndex === -1) {
-      newValue.push(option);
+    if (!isOnlyValueSelect) {
+      if (optionIndex === -1) {
+        newValue.push(option);
+      } else {
+        newValue.splice(optionIndex, 1);
+      }
     } else {
-      newValue.splice(optionIndex, 1);
+      newValue = [];
+      newValue.push(option);
+      setSelectOpen(false);
     }
-    setSelectTitle(`${newValue.length} of ${selectItems.length} selected`)
+    isOnlyValueSelect ? setSelectTitle(newValue[0]) : setSelectTitle(`${newValue.length} of ${selectItems.length} selected`)
     setSelectedValues(newValue);
     handleChoose(newValue);
   };
 
   return (
-    <div className={cn(s.selectWrapper, { [s.open]: isSelectOpened })}>
+    <div className={cn(s.selectWrapper, { [s.open]: isSelectOpened, [s.styled]: styled })}>
       <div className={s.select}>
-        <div className={s.selectTrigger} onClick={handleSelectOpen}>
+        <div className={cn(s.selectTrigger, {[s.styled]: styled })} onClick={handleSelectOpen}>
           <span className={s.selectedValue}>{selectTitle}</span>
           <img src={arrow} alt='' className={cn(s.arrow, { [s.open]: isSelectOpened })}/>
         </div>
         <div className={s.customOptions}>
-          {selectItems.map((item) => (
+          {selectItems.map((item: any) => (
             <span
-              key={item.id}
-              className={cn(s.customOption, { [s.active]: selectedValues.includes(item.title) })}
-              data-value={item.title}
+              key={item.id || ''}
+              className={cn(s.customOption, { [s.active]: selectedValues.includes(item.title || item) })}
+              data-value={item.title || item}
               onClick={handleOptionClick}
             >
-              {item.title}
+              {item.title || item}
             </span>
           ))}
         </div>
