@@ -1,5 +1,34 @@
-.selectContainer {
-  position: relative;
-  height: 25px;
-  margin-bottom: 30px;
+.topBlock {
+  display: flex;
+  align-items: center;
+  .selectContainer {
+    position: relative;
+    height: 25px;
+    margin-bottom: 30px;
+  }
+  .pageTitle {
+    display: inline-block;
+    margin-bottom: 30px;
+    margin-right: 70px;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 23px;
+    color: #252525;
+  }
+}
+.mainContent {
+  display: flex;
+  .categories {
+    .categoriesItem {
+      &:not(:last-child) {
+        margin-bottom: 20px;
+      }
+      .link {
+        font-weight: 300;
+        font-size: 16px;
+        line-height: 19px;
+        color: #252525;
+      }
+    }
+  }
 }

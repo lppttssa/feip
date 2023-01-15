@@ -52,11 +52,11 @@ export const footerBlocks = [
 ]
 
 export const headerLinks = [
-  {
+  /*{
     id: '1',
     title: 'New',
     link: '/',
-  },
+  },*/
   {
     id: '2',
     title: 'Каталог',

@@ -27,5 +27,29 @@
         text-transform: uppercase;
       }
     }
+    .categories {
+      padding-top: 100px;
+      padding-bottom: 100px;
+      .title {
+        margin-bottom: 50px;
+        font-weight: 300;
+        font-size: 36px;
+        line-height: 42px;
+        color: #252525;
+      }
+      .categoriesContainer {
+        display: flex;
+        flex-wrap: wrap;
+        .flexItem {
+          max-width: 274px;
+          width: 100%;
+          min-height: 450px;
+          flex-shrink: 0;
+          &:not(:nth-child(4n)) {
+            margin-right: 14px;
+          }
+        }
+      }
+    }
   }
 }

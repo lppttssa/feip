@@ -9,18 +9,21 @@ import {CatalogProductCardList} from "../../components/catalogProductCardList/Ca
 import {Pagination} from "../../components/ui/Pagination/Pagination";
 import {ProductType} from "../../types";
 import {getBrandIdByName} from "../../functions";
+import {Link} from "react-router-dom";
 
 export const ITEMS_PER_PAGE = 6;
 
 export const CatalogPage = ():JSX.Element => {
   const [brands, setBrands] = useState([]);
   const [products, setProducts] = useState<ProductType[]>([]);
+  const [categories, setCategories] = useState([]);
   const [sortedProducts, setSortedProducts] = useState([...products]);
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     getData('brands.json').then(response => setBrands(response));
     getData('/products.json').then(response => setProducts(response));
+    getData('/categories.json').then(response => setCategories(response));
   }, []);
 
   useEffect(() => {
@@ -47,7 +50,6 @@ export const CatalogPage = ():JSX.Element => {
       for (let i = 0; i < chosenOptions.length; i++) {
         const brandId = getBrandIdByName(chosenOptions[i], brands);
         currentSortedProducts = currentSortedProducts.concat(products.filter(item => item.brand === brandId))
-
       }
       setSortedProducts(currentSortedProducts);
     } else {
@@ -59,14 +61,28 @@ export const CatalogPage = ():JSX.Element => {
     <div className={cn(s.catalogPage)}>
       <Header styled />
       <main className={'container'}>
-        <div className={s.selectContainer}>
-          <Select
-            selectItems={brands}
-            selectDefaultTitle='Бренд'
-            handleChoose={handleSelectChoose}
-          />
+        <div className={s.topBlock}>
+          <h3 className={s.pageTitle}>Каталог</h3>
+          <div className={s.selectContainer}>
+            <Select
+                selectItems={brands}
+                selectDefaultTitle='Бренд'
+                handleChoose={handleSelectChoose}
+            />
+          </div>
         </div>
-        <CatalogProductCardList products={getProductsPerPage()} brands={brands} />
+        <div className={s.mainContent}>
+          <ul className={cn('list-reset', s.categories)}>
+            {categories.map((item: any) => (
+              <li className={s.categoriesItem}>
+                <Link to={'/'} className={s.link}>
+                  {item?.title}
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <CatalogProductCardList products={getProductsPerPage()} brands={brands} />
+        </div>
         <Pagination
           currentPage={currentPage}
           handleClick={handlePaginationClick}

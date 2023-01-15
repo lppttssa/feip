@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "title": "Vero Moda",
+    "image": "/images/1.png"
+  },
+  {
+    "id": 2,
+    "title": "Betty Barclay",
+    "image": "/images/1.png"
+  },
+  {
+    "id": 3,
+    "title": "Gerry Weber",
+    "image": "/images/1.png"
+  },
+  {
+    "id": 4,
+    "title": "Desigual",
+    "image": "/images/1.png"
+  }
+]
