@@ -19,13 +19,17 @@ export const CatalogPage = ():JSX.Element => {
   const [categories, setCategories] = useState([]);
   const [sortedProducts, setSortedProducts] = useState([...products]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [sortingValue, setSortingValue] = useState('');
   const { id } = useParams();
 
   useEffect(() => {
     if (id) {
-      getData(`categories/${id}`);
+      getData(`categories/${id}`).then(response => setProducts(response));
     } else {
-      getData('products').then(response => setProducts(response));
+      getData('products').then(response => {
+        setProducts(response);
+        handleSort(sortingValue);
+      });
     }
     getData('categories').then(response => setCategories(response));
   }, []);
@@ -35,13 +39,27 @@ export const CatalogPage = ():JSX.Element => {
       //@ts-ignore
       getData(`categories/${id}`).then(response => setProducts(response));
     } else {
-      getData('products').then(response => setProducts(response));
+      getData('products').then(response => {
+        setProducts(response);
+        handleSort(sortingValue);
+      });
     }
+    handleSort(sortingValue);
   }, [id])
 
   useEffect(() => {
     setSortedProducts([...products]);
   }, [products]);
+
+  const handleSort = (option: string) => {
+    if (option === 'Убыванию цены') {
+      setSortedProducts([...sortedProducts.sort((a, b) =>  b.Price - a.Price)]);
+    } else if (option === 'Возрастанию цены') {
+      setSortedProducts([...sortedProducts.sort((a, b) =>  a.Price - b.Price)]);
+    } else if (option === 'Релевантности') {
+      setSortedProducts([...products]);
+    }
+  }
 
   const handlePaginationClick = (e: any) => {
     setCurrentPage(+e.target.innerText);
@@ -57,21 +75,12 @@ export const CatalogPage = ():JSX.Element => {
   }
 
   const handleSelectChoose = (chosenOptions: string[]) => {
+    const option = chosenOptions[0];
+    setSortingValue(chosenOptions[0]);
     setCurrentPage(1);
-    if (chosenOptions.length) {
-      let currentSortedProducts: ProductType[] = [];
-      for (let i = 0; i < chosenOptions.length; i++) {
-        const brandId = getBrandIdByName(chosenOptions[i], brands);
-        currentSortedProducts = currentSortedProducts.concat(products.filter(item => item.brand === brandId))
-      }
-      setSortedProducts(currentSortedProducts);
-    } else {
-      setSortedProducts([...products]);
-    }
+    handleSort(option);
   }
 
-  console.log(id)
-  console.log(categories)
   return (
     <div className={cn(s.catalogPage)}>
       <Header styled />
@@ -80,9 +89,11 @@ export const CatalogPage = ():JSX.Element => {
           <h3 className={s.pageTitle}>Каталог</h3>
           <div className={s.selectContainer}>
             <Select
-                selectItems={brands}
-                selectDefaultTitle='Бренд'
-                handleChoose={handleSelectChoose}
+              isOnlyValueSelect
+              selectItems={['Релевантности', 'Убыванию цены', 'Возрастанию цены']}
+              selectDefaultTitle='Сортировать по'
+              handleChoose={handleSelectChoose}
+              isBig
             />
           </div>
         </div>

@@ -3,6 +3,7 @@
   align-items: center;
   .selectContainer {
     position: relative;
+    margin-left: 35px;
     height: 25px;
     margin-bottom: 30px;
   }
@@ -19,6 +20,8 @@
 .mainContent {
   display: flex;
   .categories {
+    width: 150px;
+    margin-right: 30px;
     .categoriesItem {
       &:not(:last-child) {
         margin-bottom: 20px;

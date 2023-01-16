@@ -10,6 +10,7 @@ type SelectProps = {
   handleChoose: (chosenOptions: string[]) => void,
   isOnlyValueSelect?: boolean,
   styled?: boolean,
+  isBig?: boolean,
 };
 
 export const Select = (props: SelectProps) => {
@@ -18,7 +19,8 @@ export const Select = (props: SelectProps) => {
     selectDefaultTitle,
     handleChoose,
     isOnlyValueSelect,
-    styled
+    styled,
+    isBig
   } = props;
 
   const [selectTitle, setSelectTitle] = useState(selectDefaultTitle);
@@ -50,16 +52,16 @@ export const Select = (props: SelectProps) => {
   };
 
   return (
-    <div className={cn(s.selectWrapper, { [s.open]: isSelectOpened, [s.styled]: styled })}>
+    <div className={cn(s.selectWrapper, { [s.open]: isSelectOpened, [s.styled]: styled, [s.big]: isBig })}>
       <div className={s.select}>
         <div className={cn(s.selectTrigger, {[s.styled]: styled })} onClick={handleSelectOpen}>
           <span className={s.selectedValue}>{selectTitle}</span>
           <img src={arrow} alt='' className={cn(s.arrow, { [s.open]: isSelectOpened })}/>
         </div>
-        <div className={s.customOptions}>
-          {selectItems.map((item: any) => (
+        <div className={cn(s.customOptions, {[s.big]: isBig})}>
+          {selectItems.map((item: any, index: any) => (
             <span
-              key={item.id || ''}
+              key={item.id || index}
               className={cn(s.customOption, { [s.active]: selectedValues.includes(item.title || item) })}
               data-value={item.title || item}
               onClick={handleOptionClick}
