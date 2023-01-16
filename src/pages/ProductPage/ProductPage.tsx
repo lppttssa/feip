@@ -6,13 +6,19 @@ import {Footer} from "../../components/Footer/Footer";
 import cn from "classnames";
 import {Select} from "../../components/ui/Select/Select";
 import {Button} from "../../components/ui/Button/Button";
+import {useParams} from 'react-router-dom';
 
 export const ProductPage = ():JSX.Element => {
   const [product, setProduct] = useState<any>(null);
   const [selectedSize, setSelectedSize] = useState('');
+  const { id } = useParams()
+
   useEffect(() => {
-    getData('/products.json').then(response => setProduct(response[0]));
+    /*getData('/products').then(response => setProduct(response.find((item: any) => item.id.toString() === id)));*/
+    //getData('/products').then(response => setProduct(response.find((item: any) => item.id.toString() === id)));
   }, []);
+
+  console.log(product)
 
   return (
     <div className={cn('container', s.productPage)}>

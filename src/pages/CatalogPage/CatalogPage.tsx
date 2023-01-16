@@ -9,7 +9,7 @@ import {CatalogProductCardList} from "../../components/catalogProductCardList/Ca
 import {Pagination} from "../../components/ui/Pagination/Pagination";
 import {ProductType} from "../../types";
 import {getBrandIdByName} from "../../functions";
-import {Link} from "react-router-dom";
+import {Link, useParams} from "react-router-dom"
 
 export const ITEMS_PER_PAGE = 6;
 
@@ -19,12 +19,25 @@ export const CatalogPage = ():JSX.Element => {
   const [categories, setCategories] = useState([]);
   const [sortedProducts, setSortedProducts] = useState([...products]);
   const [currentPage, setCurrentPage] = useState(1);
+  const { id } = useParams();
 
   useEffect(() => {
-    getData('brands.json').then(response => setBrands(response));
-    getData('/products.json').then(response => setProducts(response));
-    getData('/categories.json').then(response => setCategories(response));
+    if (id) {
+      getData(`categories/${id}`);
+    } else {
+      getData('products').then(response => setProducts(response));
+    }
+    getData('categories').then(response => setCategories(response));
   }, []);
+
+  useEffect(() => {
+    if (id) {
+      //@ts-ignore
+      getData(`categories/${id}`).then(response => setProducts(response));
+    } else {
+      getData('products').then(response => setProducts(response));
+    }
+  }, [id])
 
   useEffect(() => {
     setSortedProducts([...products]);
@@ -57,6 +70,8 @@ export const CatalogPage = ():JSX.Element => {
     }
   }
 
+  console.log(id)
+  console.log(categories)
   return (
     <div className={cn(s.catalogPage)}>
       <Header styled />
@@ -75,8 +90,8 @@ export const CatalogPage = ():JSX.Element => {
           <ul className={cn('list-reset', s.categories)}>
             {categories.map((item: any) => (
               <li className={s.categoriesItem}>
-                <Link to={'/'} className={s.link}>
-                  {item?.title}
+                <Link to={`/catalog/${item.ID}`} className={cn(s.link, { [s.active]: item.ID.toString() === id })}>
+                  {item?.Name}
                 </Link>
               </li>
             ))}

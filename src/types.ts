@@ -6,30 +6,19 @@ export type BrandType = {
 }
 
 export type ProductType = {
-  id: number,
+  ID: number,
   type: string,
-  sku: string,
-  title: string,
-  price: {
-    currency: string,
-    value: number,
-  },
-  image: string,
+  Sku: string,
+  Title: string,
+  Price: number,
+  Image: string,
   brand: number,
-}
-
-export type PriceType = {
-  currency: string,
-  value: number,
 }
 
 export type ProductCartType = {
   sku: string,
   title: string,
-  price: {
-    currency: string,
-    value: number,
-  },
+  price: number,
   image: string,
 }
 

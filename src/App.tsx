@@ -14,9 +14,10 @@ function App() {
         <Router>
           <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route path="/catalog/:id" element={<CatalogPage />} />
             <Route path="/catalog" element={<CatalogPage />} />
             <Route path="/cart" element={<CartPage />}/>
-            <Route path="/product" element={<ProductPage/>}/>
+            <Route path="/product/:id" element={<ProductPage />}/>
           </Routes>
         </Router>
       </CartContextComponent>

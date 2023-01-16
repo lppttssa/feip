@@ -1,6 +1,8 @@
+
 export const getData = async (path: string) => {
-  return fetch(`data/${path}`
+  return fetch(`/${path}`
     , {
+      method: 'GET',
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'

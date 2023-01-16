@@ -1,6 +1,6 @@
 import React from 'react';
 import s from './CartProductCard.module.scss';
-import {PriceType, ProductCartType} from "../../types";
+import {ProductCartType} from "../../types";
 import {InputStepper} from "../ui/Stepper/InputStepper";
 import {CartRemoveIcon} from "../ui/icons/CartRemoveIcon";
 
@@ -9,7 +9,7 @@ type CartProductCardProps = {
   sku: string,
   title: string,
   quantity: number,
-  price: PriceType,
+  price: number,
   changeQuantity: (item: ProductCartType, step: number) => void,
   removeItem: (item: ProductCartType) => void,
 }
@@ -40,7 +40,7 @@ export const CartProductCard = (props: CartProductCardProps) => {
       </div>
       <InputStepper inputValue={quantity} handleStepperChange={handleQuantityChange} />
       <div className={s.rightContainer}>
-        <span className={s.price}>{`${price.value} ${price.currency}`}</span>
+        <span className={s.price}>{`${price} руб.`}</span>
         <CartRemoveIcon onClick={handleProductRemove} />
       </div>
     </li>

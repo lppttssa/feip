@@ -73,7 +73,7 @@ export const CartPage = ():JSX.Element => {
         К оплате:
         <span
           className={s.price}>
-          {`${cart.reduce((sum, item) => sum + item.quantity * item.price.value, 0).toFixed(2)} руб.`}
+          {`${cart.reduce((sum, item) => sum + item.quantity * item.price, 0).toFixed(2)} руб.`}
         </span>
       </p>
       <h3 className={s.title}>Оформление заказа</h3>
@@ -109,7 +109,7 @@ export const CartPage = ():JSX.Element => {
         </div>
         <div className={s.rightSide}>
           <span className={s.title}>Доставка:<span className={s.data}>По тарифам перевозчика</span></span>
-          <span className={s.title}>Итого:<span className={s.data}>{`${cart.reduce((sum, item) => sum + item.quantity * item.price.value, 0).toFixed(2)} руб.`}</span></span>
+          <span className={s.title}>Итого:<span className={s.data}>{`${cart.reduce((sum, item) => sum + item.quantity * item.price, 0).toFixed(2)} руб.`}</span></span>
           <Button type='submit' onClick={handleOrderSend} text={'ОФОРМИТЬ ЗАКАЗ'} />
           <p className={s.conditions}>Нажимая на кнопку «оплатить заказ», я принимаю условия публичной оферты и политики конфиденциальности</p>
         </div>

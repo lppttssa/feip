@@ -41,6 +41,7 @@
         display: flex;
         flex-wrap: wrap;
         .flexItem {
+          cursor: pointer;
           max-width: 274px;
           width: 100%;
           min-height: 450px;

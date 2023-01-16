@@ -17,15 +17,14 @@ export const CatalogProductCardList = (props: ItemCardListProps):JSX.Element => 
   return (
     <ul className={s.cardList}>
       {products.map((item) => (
-        <li className={s.card}>
+        <li className={s.card} key={item.ID}>
           <CatalogProductCard
-            key={item.id}
-            img={item.image}
-            title={item.title}
-            price={item.price}
+            id={item.ID}
+            img={item.Image}
+            title={item.Title}
+            price={item.Price}
             brand={getBrandNameById(item.brand, brands)}
-            sku={item.sku}
-            type={item.type}
+            sku={item.Sku}
           />
         </li>
       ))}
