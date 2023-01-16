@@ -20,6 +20,7 @@ export type ProductCartType = {
   title: string,
   price: number,
   image: string,
+  size?: string,
 }
 
 export type CartType =  ProductCartType & {quantity: number};

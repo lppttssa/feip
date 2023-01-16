@@ -46,6 +46,7 @@
           width: 100%;
           min-height: 450px;
           flex-shrink: 0;
+          margin-bottom: 40px;
           &:not(:nth-child(4n)) {
             margin-right: 14px;
           }

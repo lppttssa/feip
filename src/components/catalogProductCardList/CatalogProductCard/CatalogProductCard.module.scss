@@ -34,6 +34,13 @@
       margin-bottom: 20px;
       color: rgba(37, 37, 37, 0.5);
     }
+    .selectContainer {
+      position: relative;
+      height: 40px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
     .btn {
       min-width: 170px;
     }

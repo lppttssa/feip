@@ -10,6 +10,7 @@ import {Pagination} from "../../components/ui/Pagination/Pagination";
 import {ProductType} from "../../types";
 import {getBrandIdByName} from "../../functions";
 import {Link, useParams} from "react-router-dom"
+import Loader from "../../components/ui/Loader/Loader";
 
 export const ITEMS_PER_PAGE = 6;
 
@@ -20,31 +21,40 @@ export const CatalogPage = ():JSX.Element => {
   const [sortedProducts, setSortedProducts] = useState([...products]);
   const [currentPage, setCurrentPage] = useState(1);
   const [sortingValue, setSortingValue] = useState('');
+  const [isLoadingProducts, setLoadingProducts] = useState(true);
+  const [isLoadingCategories, setLoadingCategories] = useState(false);
   const { id } = useParams();
 
   useEffect(() => {
     if (id) {
-      getData(`categories/${id}`).then(response => setProducts(response));
+      setLoadingProducts(true);
+      getData(`categories/${id}`).then(response => {setProducts(response); setLoadingProducts(false)});
     } else {
+      setLoadingProducts(true);
       getData('products').then(response => {
         setProducts(response);
-        handleSort(sortingValue);
+        setLoadingProducts(false);
       });
     }
-    getData('categories').then(response => setCategories(response));
+    // @ts-ignore
+    setSortingValue([]);
+    setLoadingCategories(true);
+    getData('categories').then(response => {setCategories(response); setLoadingCategories(false)});
   }, []);
 
   useEffect(() => {
+    setLoadingProducts(true);
     if (id) {
       //@ts-ignore
-      getData(`categories/${id}`).then(response => setProducts(response));
+      getData(`categories/${id}`).then(response => {setProducts(response); setLoadingProducts(false)});
     } else {
       getData('products').then(response => {
         setProducts(response);
-        handleSort(sortingValue);
+        setLoadingProducts(false);
       });
     }
-    handleSort(sortingValue);
+    // @ts-ignore
+    setSortingValue([]);
   }, [id])
 
   useEffect(() => {
@@ -81,10 +91,13 @@ export const CatalogPage = ():JSX.Element => {
     handleSort(option);
   }
 
+
+  console.log(sortedProducts)
+
   return (
     <div className={cn(s.catalogPage)}>
       <Header styled />
-      <main className={'container'}>
+      {!isLoadingCategories && !isLoadingProducts ? <main className={'container'}>
         <div className={s.topBlock}>
           <h3 className={s.pageTitle}>Каталог</h3>
           <div className={s.selectContainer}>
@@ -116,8 +129,8 @@ export const CatalogPage = ():JSX.Element => {
           itemsNumber={sortedProducts.length}
           itemsPerPage={ITEMS_PER_PAGE}
         />
-      </main>
+      </main> : <Loader />}
       <Footer />
     </div>
   );
-};
+}

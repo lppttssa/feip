@@ -12,11 +12,12 @@ type CartProductCardProps = {
   price: number,
   changeQuantity: (item: ProductCartType, step: number) => void,
   removeItem: (item: ProductCartType) => void,
+  size?: string,
 }
 
 export const CartProductCard = (props: CartProductCardProps) => {
   const {
-    img, sku, title, quantity, price, changeQuantity, removeItem
+    img, sku, title, quantity, price, changeQuantity, removeItem, size
   } = props;
 
   const handleQuantityChange = (step: number) => {
@@ -25,7 +26,7 @@ export const CartProductCard = (props: CartProductCardProps) => {
   }
 
   const handleProductRemove = () => {
-    const product = {sku, title, price, image: img};
+    const product = {sku, title, price, image: img, size: size};
     removeItem(product);
   }
 
@@ -38,6 +39,7 @@ export const CartProductCard = (props: CartProductCardProps) => {
           <span className={s.title}>{title}</span>
         </span>
       </div>
+      <span>{size || 'XS'}</span>
       <InputStepper inputValue={quantity} handleStepperChange={handleQuantityChange} />
       <div className={s.rightContainer}>
         <span className={s.price}>{`${price} руб.`}</span>

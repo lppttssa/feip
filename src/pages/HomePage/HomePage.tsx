@@ -11,7 +11,7 @@ export const HomePage = ():JSX.Element => {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    //getData('categories.json').then(response => setCategories(response));
+    getData('categories').then(response => setCategories(response));
   }, []);
 
   return (
@@ -27,8 +27,8 @@ export const HomePage = ():JSX.Element => {
           <h3 className={s.title}>Категории</h3>
           <div className={s.categoriesContainer}>
             {categories.map((item: any) => (
-              <Link to={`/catalog/${item.id}`} className={s.flexItem}>
-                <CategoryCard key={item.id} img={item.image} title={item.title} />
+              <Link to={`/catalog/${item.ID}`} className={s.flexItem}>
+                <CategoryCard key={item.ID} img={item.Image} title={item.Name} />
               </Link>
             ))}
           </div>

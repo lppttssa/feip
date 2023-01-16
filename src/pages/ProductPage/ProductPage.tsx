@@ -7,22 +7,43 @@ import cn from "classnames";
 import {Select} from "../../components/ui/Select/Select";
 import {Button} from "../../components/ui/Button/Button";
 import {useParams} from 'react-router-dom';
+import {useCartState} from "../../context/shopping-cart/Context";
+import Loader from "../../components/ui/Loader/Loader";
 
 export const ProductPage = ():JSX.Element => {
   const [product, setProduct] = useState<any>(null);
   const [selectedSize, setSelectedSize] = useState('');
+  const [isLoading, setLoading] = useState(false);
   const { id } = useParams()
 
+  const {state: {cart}, addItem, removeItem} = useCartState();
+
   useEffect(() => {
-    getData(`products/${id}`).then(response => setProduct(response));
+    setLoading(true);
+    getData(`products/${id}`).then(response => {setProduct(response); setLoading(false)});
   }, []);
 
-  console.log(product)
+  const handleAdd = () => {
+    if (selectedSize) {
+      const productSend = {
+        sku: product?.Sku,
+        title: product?.title,
+        price: product?.Price,
+        image: product?.Image,
+        size: selectedSize,
+      };
+      isItemInCart() ? removeItem(productSend) : addItem(productSend)
+    }
+  }
+
+  const isItemInCart = () => {
+    return cart.some((item: any) => item.sku === product?.Sku && item.size === selectedSize);
+  }
 
   return (
     <div className={cn(s.productPage)}>
       <Header styled />
-      <div className={cn('container', s.content)}>
+      {!isLoading ? <div className={cn('container', s.content)}>
         <div className={s.imgContainer}>
           <div className={s.smallImgBlock}>
             <div className={s.smallImgContainer}>
@@ -48,18 +69,18 @@ export const ProductPage = ():JSX.Element => {
           <span className={s.price}>{`${product?.Price} руб`}</span>
           <div className={s.selectContainer}>
             <Select
-              selectItems={['XS', 'S']}
+              selectItems={['XS', 'S', 'M', 'L']}
               selectDefaultTitle={'Выберите размер'}
               handleChoose={(val) => setSelectedSize(val[0])}
               isOnlyValueSelect
               styled
             />
           </div>
-          <Button className={s.btn} onClick={() => console.log()} text='В корзину' />
+          <Button className={s.btn} onClick={handleAdd} text={isItemInCart() ? 'Удалить' : 'В корзину'} />
           <p className={s.descriptionTitle}>Состав</p>
           <p className={s.description}>{product?.Composition}</p>
         </div>
-      </div>
+      </div> : <Loader/>}
       <Footer/>
     </div>
   );

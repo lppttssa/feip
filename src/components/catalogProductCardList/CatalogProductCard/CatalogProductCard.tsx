@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 import s from './CatalogProductCard.module.scss';
 import {ProductCartType} from "../../../types";
 import {useCartState} from "../../../context/shopping-cart/Context";
 import {Button} from "../../ui/Button/Button";
 import {Link} from "react-router-dom";
+import {Select} from "../../ui/Select/Select";
 
 type ItemCardProps = {
   id: number,
@@ -19,6 +20,8 @@ const CatalogProductCard = (props: ItemCardProps) => {
     img, title, price, brand, sku, id
   } = props;
 
+  const [size, setSize] = useState('');
+
   const {
     state: { cart },
     addItem,
@@ -26,12 +29,14 @@ const CatalogProductCard = (props: ItemCardProps) => {
   } = useCartState();
 
   const isItemInCart = () => {
-    return cart.some((item: any) => item.sku === sku);
+    return cart.some((item: any) => item.sku === sku && item.size === size);
   }
 
   const handleCartChange = () => {
-    const params: ProductCartType = {title, price, sku, image: img};
-    isItemInCart() ? removeItem(params) : addItem(params)
+    if (size) {
+      const params: ProductCartType = {title, price, sku, image: img, size};
+      isItemInCart() ? removeItem(params) : addItem(params)
+    }
   }
 
   return (
@@ -45,7 +50,15 @@ const CatalogProductCard = (props: ItemCardProps) => {
           <span className={s.priceValue}>{price}</span>
           <span className={s.priceCurrency}>руб.</span>
         </span>
-        <span className={s.brand}>{brand}</span>
+        <div className={s.selectContainer}>
+          <Select
+            isOnlyValueSelect
+            selectItems={['XS', 'S', 'M', 'L']}
+            selectDefaultTitle={'Выберите размер'}
+            handleChoose={(val) => setSize(val[0])}
+            isBig
+          />
+        </div>
         <Button
           onClick={handleCartChange}
           text={isItemInCart() ? 'Удалить' : 'В корзину'}
