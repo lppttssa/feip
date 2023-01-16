@@ -14,39 +14,38 @@ export const ProductPage = ():JSX.Element => {
   const { id } = useParams()
 
   useEffect(() => {
-    /*getData('/products').then(response => setProduct(response.find((item: any) => item.id.toString() === id)));*/
-    //getData('/products').then(response => setProduct(response.find((item: any) => item.id.toString() === id)));
+    getData(`products/${id}`).then(response => setProduct(response));
   }, []);
 
   console.log(product)
 
   return (
-    <div className={cn('container', s.productPage)}>
+    <div className={cn(s.productPage)}>
       <Header styled />
-      <div className={s.content}>
+      <div className={cn('container', s.content)}>
         <div className={s.imgContainer}>
           <div className={s.smallImgBlock}>
             <div className={s.smallImgContainer}>
-              <img className={cn(s.smallImg, s.firstImage)} src={product?.image} alt=""/>
+              <img className={cn(s.smallImg, s.firstImage)} src={product?.Image} alt=""/>
             </div>
             <div className={s.smallImgContainer}>
-              <img className={cn(s.smallImg, s.secondImage)} src={product?.image} alt=""/>
+              <img className={cn(s.smallImg, s.secondImage)} src={product?.Image} alt=""/>
             </div>
             <div className={s.smallImgContainer}>
-              <img className={cn(s.smallImg, s.thirdImage)} src={product?.image} alt=""/>
+              <img className={cn(s.smallImg, s.thirdImage)} src={product?.Image} alt=""/>
             </div>
             <div className={s.smallImgContainer}>
-              <img className={cn(s.smallImg, s.fourthImage)} src={product?.image} alt=""/>
+              <img className={cn(s.smallImg, s.fourthImage)} src={product?.Image} alt=""/>
             </div>
             <div className={s.smallImgContainer}>
-              <img className={cn(s.smallImg, s.fifthImage)} src={product?.image} alt=""/>
+              <img className={cn(s.smallImg, s.fifthImage)} src={product?.Image} alt=""/>
             </div>
           </div>
-          <img src={product?.image} alt={product?.title}/>
+          <img src={product?.Image} alt={product?.Title}/>
         </div>
         <div className={s.mainInfo}>
-          <span className={s.productTitle}>{product?.title}</span>
-          <span className={s.price}>{`${product?.price.value} ${product?.price.currency}`}</span>
+          <span className={s.productTitle}>{product?.Title}</span>
+          <span className={s.price}>{`${product?.Price} руб`}</span>
           <div className={s.selectContainer}>
             <Select
               selectItems={['XS', 'S']}
@@ -58,7 +57,7 @@ export const ProductPage = ():JSX.Element => {
           </div>
           <Button className={s.btn} onClick={() => console.log()} text='В корзину' />
           <p className={s.descriptionTitle}>Состав</p>
-          <p className={s.description}>{product?.composition}</p>
+          <p className={s.description}>{product?.Composition}</p>
         </div>
       </div>
       <Footer/>
