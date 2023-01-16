@@ -1,7 +1,7 @@
 import {CartActionsType, CartStateType, CartType, ProductCartType} from "../../types";
 
 const changeQuantity = (cart: CartType[], product: ProductCartType, step: number) => {
-  const itemIndex = cart.findIndex(item => item.sku === product.sku);
+  const itemIndex = cart.findIndex(item => item.sku === product.sku && item.size === product.size);
   let newCart = [...cart];
   if (itemIndex >= 0) {
     let newItem = {...newCart[itemIndex]};
@@ -22,8 +22,9 @@ export const cartReducer = (state: CartStateType, action: CartActionsType): Cart
       localStorage.setItem('cart', JSON.stringify(changeQuantity(state.cart, action.item, action.step)));
       return {...state, cart: changeQuantity(state.cart, action.item, action.step)};
     case 'REMOVE_FROM_CART':
-      localStorage.setItem('cart', JSON.stringify(state.cart.filter(item => item.sku !== action.item.sku)));
-      return {...state, cart: state.cart.filter(item => item.sku !== action.item.sku)};
+      localStorage.setItem('cart',
+          JSON.stringify(state.cart.filter(item => (item.sku !== action.item.sku) || (item.sku === action.item.sku && item.size !== action.item.size) )));
+      return {...state, cart: state.cart.filter(item => (item.sku !== action.item.sku) || (item.sku === action.item.sku && item.size !== action.item.size))};
     case 'CLEAR_CART':
       localStorage.setItem('cart', JSON.stringify([]));
       return {...state, cart: []}

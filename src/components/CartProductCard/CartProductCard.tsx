@@ -3,6 +3,7 @@ import s from './CartProductCard.module.scss';
 import {ProductCartType} from "../../types";
 import {InputStepper} from "../ui/Stepper/InputStepper";
 import {CartRemoveIcon} from "../ui/icons/CartRemoveIcon";
+import {Link} from "react-router-dom";
 
 type CartProductCardProps = {
   img: string,
@@ -17,11 +18,11 @@ type CartProductCardProps = {
 
 export const CartProductCard = (props: CartProductCardProps) => {
   const {
-    img, sku, title, quantity, price, changeQuantity, removeItem, size
+    img, sku, title, quantity, price, changeQuantity, removeItem, size,
   } = props;
 
   const handleQuantityChange = (step: number) => {
-    const product = {sku, title, price, image: img};
+    const product = {sku, title, price, image: img, size};
     changeQuantity(product, step);
   }
 
